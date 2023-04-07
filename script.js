@@ -1,122 +1,122 @@
-// Check the link in Console Chrome Dev Tools
-// console.log("Hello World")
+// Check the link in Console in Chrome Dev Tools
+// console.log("Hello World");
+
+// Cael's Cat variable
+let cat = "😸";
 
 // Guess That Number
-// Message to be uses throughout the project
+// Message to be used throughout the project
 const enterNumText = 'Please enter a number greater than zero:';
 
 // For restarting the game
 let restartGame = true;
 
-// For storing the range of number to be guessed
+// For storing the range of the number to be guessed
 let rangeNum;
 
-// For storing the number of attempts the user has remaining
-let lives;
+// For storing the number of attempts the user has left
+let lives; 
 
-// Cat variable
-let cat= "🐱";
-
-// For storing the users guess
+// For storing the user's guess
 let guess;
 
-// For storing the users response to play again or not play again
+// For storing the user's response to play again or not play again
 let playAgain;
 
 // Starting alert message
 alert('Welcome to "GUESS THAT NUMBER!" Please click "OK" to start the game');
 
-// Game restarts as long as restartGame is true
+// Game restarts as long as restartGame has a value of true
 while (restartGame) {
-    // Asks the user to enter a number to set the upper limit for the random number that will be created
+    // Asks the user to enter a number to set the upper bound for the random number that will be created.
     rangeNum = prompt('Please enter a maximum number for the range');
-    
-    // Using parseInt to attempt to convert the users response into a number value
-    rangeNum = parseInt(rangeNum)
 
-    // Verifies the users entry for a range number is a number greater than 0
-    // All number, positive or negative, have a default boolean value of true, except for zero, which is false
+    // Using parseInt to attempt to convert the user's response into a number value
+    rangeNum = parseInt(rangeNum)
+    
+    // Verifies the user's entry for a range number is a number greater than zero
+    // NOTE: All numbers, positive or negative, have a default boolean value of true, EXCEPT for zero, which has a default boolean value of false
     while (!rangeNum || rangeNum < 1) {
         rangeNum = prompt(enterNumText);
         rangeNum = parseInt(rangeNum);
-    };
+    }
 
-    // Create the random number within the range entered by the user
+    // Create the random number using the range number entered by the user
     randomNum = Math.floor(Math.random() * rangeNum) + 1;
     console.log(randomNum);
-
-    // Prompts the user to enter a number of attempts allowed
-    lives = parseInt(prompt('Please enter a number of attempts allowed.'));
+    
+    // Prompts user to enter a number of attempts (lives) allowed (e.g. the number of guesses)
+    lives = parseInt(prompt('Please enter a number of attempts allowed:'));
     console.log(lives);
 
-    // Verifying the users entry for the number of attempts allowed is a number greater than zero and equal to of less than the range they set
+    // Verifying the user's entry for a numbers of attempts allowed is a number greater than zero and equal to or less than the range they set
     while (!lives || lives < 1 || lives > rangeNum) {
-        lives = parseInt(prompt('Please enter a number of attempts allowed:'));
+        lives = parseInt(prompt('Please enter a number of attempts allowed again:'));
         console.log(lives);
-    };
+    }
 
-    // Verifying the users entry for the number of attempts allowed is a number greater than 0 and equal to or less than the rangeNum
-    while (!lives || lives < 1 || lives > rangeNum) {
-        lives = parseInt(prompt('Please enter a number of attempts allowed again.'));
-        console.log(lives);
-    };
+    // Asks the user to enter a guess in the range they set
+    guess = prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${lives} live(s) left.`);
 
-    // Ask the user to enter a guess in the range they specified
-    guess = prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${lives} attempts remaining.`);
+    // Continue looping until the user guesses the correct number or runs out of attempts. NOTE: As loop is set up, the BREAK keyword is run
+    while (true){
 
-    // Continue looping until the user guesses the correct number or runs out of attempts. As this is currently setup, the
-    while (true) {
-        // Displays the number when a codeword is entered
-        while (guess === 'pickle') {
-            alert(`The number is ${randomNum}.`);
-            guess = prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${lives} attempts remaining.`);
+        // Displays the number when a code word is entered
+        if (guess === 'pickle') {
+            alert(`Pssst... the number is ${randomNum}`)
+            guess = prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${lives} live(s) left.`);
         }
-    
-        // convert users guess to a number
+
+        // Tries to covert the user's guess into a number 
         guess = parseInt(guess);
 
-        // Verify the users guess is a number greater than zero and less than or equal to the range they set
+        // Verify the user's guess is a number greater than zero and less than or equal to the range they set
         while (!guess || guess < 1 || guess > rangeNum) {
-            guess = parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`));
-        };
+            guess = parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`))
+        }
 
-        // Remove attempt for each guess
+        // Remove  a life
         lives--;
 
         // if else
         if (guess === randomNum) {
-            alert(`CONGRATULATIONS, YOU GUESSED THE CORRECT NUMBER! ${randomNum}`);
+            alert(`CONGRATULATIONS YOU GUESSED THE CORRECT NUMBER: ${randomNum}`);
             break;
-            // Check if the user has any attempts left. If not, the game ends and the number is displayed to the user
+            // Check if the user has any lives left. If not, then the came ends and the number is displayed to the user.
         } else if (lives === 0) {
-            alert(`No Lives Remaining. The number was ${randomNum}`);
+            alert(`Sorry but you have run out of lives. The number was ${randomNum}`)
             break;
-        // Checks to see if the guess is too low and prompts the user to answer
+            // Checks to see if the guess was to low and prompts to user to answer again.
         } else if (guess < randomNum) {
-            guess = prompt(`Number too low. You have ${lives} attempts remaining.`);
-            // The only other possibility is for the guess to be too high, so we use else instead of else if
+            guess = prompt(`Too low. You have ${lives} live(s) left.`);
+        // Cael's Cat cheat code
+        // } else if (guess == cat) {
+        //     lives += 2;
+        //     guess = prompt(`You found Cael's Cat. You gained an extra life. You have ${lives} live(s) left.`)
+        // The only other possibility is the user's guess was too high so the user is prompted again. 
         } else {
-            guess = prompt(`Number too high. You have ${lives} live(s) remaining.`);
+            guess = prompt(`Too high. You have ${lives} live(s) left.`);
         }
-        // Ask if the user would like to play again
-        playAgain = prompt('Would you like to play again? (Y)es or (N)o.')
-
-        // Loop continues until the user enters a valid response
-        while (true) {
-            // Check if the user says no
-            if (playAgain.toUpperCase() === 'N') {
-                alert('Thanks for playing!')
-                restartGame = false;
-                break;
-                // Check if the user says yes
-            } else if (playAgain.toUpperCase() === 'Y') {
-                // The game restarts
-                break;
-            }else {
-                playAgain = prompt('Please enter Y or N')
-        } 
-
     }
-
-    // restartGame = false;
+    
+    // Ask the user with option to play again
+    playAgain = prompt('Would you like to play again. Y for yes. N for no.');
+    
+    // Loop continues until user submits a valid response
+    while(true){
+        // Check if the user's answer is no (eg. N for no)
+        if (playAgain.toUpperCase() === 'N'){
+            alert('Thanks for playing!');
+            restartGame = false;
+            break;
+        // Check if the users answer is yes (e.g. Y for yes) 
+        } else if (playAgain.toUpperCase() === 'Y'){
+            // The game restarts
+            break;
+        } else {
+            playAgain = prompt('Please enter Y or N');
+        }
+    }
 };
+
+console.log('Weeee the game is over');
